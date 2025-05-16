@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import landingview, productlistview, supplierlistview, addsupplier, addproduct
+from .views import landingview, productlistview, supplierlistview, addsupplier, addproduct, \
+    deleteproduct, confirmdeleteproduct, deletesupplier, confirmdeletesupplier
 
 urlpatterns = [
     path('', landingview),
@@ -24,8 +25,12 @@ urlpatterns = [
     #product url's
     path('products/', productlistview),
     path('add-product/', addproduct),
+    path('delete-product/<int:id>/', deleteproduct),
+    path('confirm-delete-product/<int:id>/', confirmdeleteproduct),
 
     #suppliers url's
     path('suppliers/', supplierlistview),
     path('add-supplier/', addsupplier),
+    path('delete-supplier/<int:id>/', deletesupplier),
+    path('confirm-delete-supplier/<int:id>/', confirmdeletesupplier),
 ]
