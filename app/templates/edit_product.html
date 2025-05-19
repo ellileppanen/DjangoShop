@@ -13,7 +13,7 @@
                 {%csrf_token %}
                 <div class="form-group">
                     <label>Price:</label>
-                    <input type="number" name="unitprice" value={{product.unitprice}}>
+                    <input type="number" step="0.01" name="unitprice" value={{product.unitprice}}>
                 </div>
                 <div class="form-group">
                     <label>Stock:</label>
