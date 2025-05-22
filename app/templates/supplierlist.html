@@ -53,12 +53,12 @@
         <div class="card-body">
             <form method="post" action="/add-supplier/">
                 {% csrf_token %}
-                <input class="card-text" class="card-text" type="text" placeholder="company´s name" name="companyname">
-                <input class="card-text" type="text" placeholder="contact person" name="contactname">
-                <input class="card-text" type="text" placeholder="address" name="address">
-                <input class="card-text" type="text" placeholder="phone" name="phone">
-                <input class="card-text" type="text" placeholder="email" name="email">
-                <input class="card-text" type="text" placeholder="country" name="country">
+                <input class="card-text" class="card-text" type="text" placeholder="company´s name" name="companyname" required>
+                <input class="card-text" type="text" placeholder="contact person" name="contactname" required>
+                <input class="card-text" type="text" placeholder="address" name="address" required>
+                <input class="card-text" type="text" placeholder="phone" name="phone" required>
+                <input class="card-text" type="email" placeholder="email" name="email" required>
+                <input class="card-text" type="text" placeholder="country" name="country" required>
                 <br/>
                 <br/>
                 <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">

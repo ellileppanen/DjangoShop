@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<h1>Delete Stock</h1>
+<br>
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h3 class="card-title">Confirm the removal of: </h3>
+        <h4 class="card-text" >{{product.productname}} stock listing,</h4>
+        <h4 class="card-text" > from {{store.storename}}</h4>
+        <br>
+        <a href="/stock/" class="btn btn-secondary">Back</a>
+
+        <a href="/delete-stock/{{stock.id}}/" class="btn btn-danger">Delete</a>
+
+    </div>
+</div>
+
+{% endblock %}

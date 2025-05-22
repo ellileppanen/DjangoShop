@@ -50,6 +50,12 @@ def products_filtered(request, id):
     context = {'products': filteredproducts}
     return render (request,"productlist.html",context)
 
+def searchproducts(request):
+    search = request.POST['search']
+    filtered = Product.objects.filter(productname__icontains=search)
+    context = {'products': filtered}
+    return render (request,"productlist.html",context)
+
 # Supplier views
 def supplierlistview(request):
     supplierlist = Supplier.objects.all()
@@ -148,3 +154,38 @@ def stocklistview(request):
     productlist = Product.objects.all()
     context = {'stock': stocklist, 'stores': storelist, 'products': productlist}
     return render (request,"stocklist.html",context)
+
+def addstock(request):
+    a = request.POST['store']
+    b = request.POST['product']
+    c = request.POST['quantity']
+    Stock(
+        store=Store.objects.get(id=a),
+        product=Product.objects.get(id=b),
+        quantity=c
+    ).save()
+    return redirect(request.META['HTTP_REFERER'])
+
+def confirmdeletestock(request, id):
+    stock = Stock.objects.get(id=id)
+    context = {
+        'stock': stock,
+        'product': stock.product,
+        'store': stock.store
+    }
+    return render(request, "confirmdelstock.html", context)
+
+def deletestock(request, id):
+    Stock.objects.get(id = id).delete()
+    return redirect(stocklistview)
+
+def edit_stock_get(request, id):
+        stock = Stock.objects.get(id = id)
+        context = {'stock': stock}
+        return render (request,"edit_stock.html",context)
+
+def edit_stock_post(request, id):
+        item = Stock.objects.get(id = id)
+        item.quantity = request.POST['quantity']
+        item.save()
+        return redirect(stocklistview)

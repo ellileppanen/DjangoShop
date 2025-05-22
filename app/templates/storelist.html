@@ -30,7 +30,6 @@
 
         <a href="/edit-store-get/{{k.id}}/" class="btn btn-primary">Edit</a>
         <a href="/confirm-delete-store/{{k.id}}/" class="btn btn-danger">Delete</a>
-        <!-- <a href="/products-by-store/{{k.id}}/" class="btn btn-secondary">{{k.storename}} Store</a> -->
     </div>
 </div>
 
@@ -53,10 +52,10 @@
         <div class="card-body">
             <form method="post" action="/add-store/">
                 {% csrf_token %}
-                <input class="card-text" class="card-text" type="text" placeholder="store name" name="storename">
-                <input class="card-text" type="text" placeholder="store manager" name="storemanager">
-                <input class="card-text" type="text" placeholder="location" name="location">
-                <input class="card-text" type="text" placeholder="city" name="city">
+                <input class="card-text" class="card-text" type="text" placeholder="store name" name="storename" required>
+                <input class="card-text" type="text" placeholder="store manager" name="storemanager" required>
+                <input class="card-text" type="text" placeholder="location" name="location" required>
+                <input class="card-text" type="text" placeholder="city" name="city" required>
                 <br/>
                 <br/>
                 <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">

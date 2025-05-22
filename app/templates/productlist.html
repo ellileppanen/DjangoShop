@@ -13,6 +13,15 @@
 <br>
 <br>
 
+<form method="post" action="/search-products/">
+
+    {%csrf_token %}
+    <input class="card-text" class="card-text" type="text" placeholder="search" name="search">
+
+    <input type="submit" value="Search" class="btn btn-dark btn-sm" name="">
+</form>
+<br>
+
 {% for p in products %}
 
 <div class="card" style="width: 50rem;">
@@ -20,7 +29,14 @@
         <h3 class="card-title">{{p.productname}} </h3>
         <p class="card-text">Supplier: {{p.supplier.companyname}}</p>
         <p class="card-text">Package size: {{p.packagesize}} | Unit price: {{p.unitprice}}$ </p>
-        <p class="card-text" style="color: green;">Units in stock: {{p.unitsinstock}} pcs </p>
+
+        {% if p.unitsinstock == 0 %}
+        <p class="card-text" style="color: red;">Out of suppliers stock!</p>
+        {% else %}
+        <p class="card-text" style="color: green;">
+            Units in suppliers stock: {{p.unitsinstock}} pcs
+        </p>
+        {% endif %}
 
         <a href="/edit-product-get/{{p.id}}/" class="btn btn-primary">Edit</a>
         <a href="/confirm-delete-product/{{p.id}}/" class="btn btn-danger">Delete</a>
@@ -52,10 +68,10 @@
         <div class="card-body">
             <form method="post" action="/add-product/">
                 {%csrf_token %}
-                <input class="card-text" class="card-text" type="text" placeholder="product name" name="productname">
-                <input class="card-text" type="text" placeholder="package size" name="packagesize">
-                <input class="card-text" type="text" placeholder="unitprice" name="unitprice">
-                <input class="card-text" type="text" placeholder="units in stock or 0" name="unitsinstock">
+                <input class="card-text" class="card-text" type="text" placeholder="product name" name="productname" required>
+                <input class="card-text" type="text" placeholder="package size" name="packagesize" required>
+                <input class="card-text" type="text" placeholder="unitprice" name="unitprice" min="0" required>
+                <input class="card-text" type="text" placeholder="units in stock or 0" name="unitsinstock" min="0" required>
                 <br />
 
                 <label for="supplier">Supplier</label>

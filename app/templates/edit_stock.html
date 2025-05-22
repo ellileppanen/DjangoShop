@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="card" style="width: 25rem;">
+    <div class="card-header">
+
+        <h5>Editing {{stock.store.storename}} stock of {{stock.product.productname}}</h5>
+
+        <div class="card-body">
+            <form method="post" action="/edit-stock-post/{{stock.id}}/">
+
+                {%csrf_token %}
+                <div class="form-group">
+                    <label>Stock:</label>
+                    <input type="number" min="0" required name="quantity" value={{stock.quantity}}>
+                </div>
+                <input type="submit" value="Update" class="btn btn-success btn-sm">
+                <input type="button" onclick="window.location.href='/stock'" id="hide-btn"
+                    class="btn btn-secondary btn-sm" value="Cancel">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

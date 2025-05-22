@@ -20,7 +20,7 @@ from .views import landingview, productlistview, supplierlistview, addsupplier, 
     deleteproduct, confirmdeleteproduct, deletesupplier, confirmdeletesupplier, edit_product_get, \
     edit_product_post, edit_supplier_get, edit_supplier_post, searchsuppliers, products_filtered, \
     storelistview, stocklistview, addstore, deletestore, confirmdeletestore, edit_store_get, edit_store_post, \
-    searchstores
+    searchstores, addstock, deletestock, confirmdeletestock, edit_stock_get, edit_stock_post, searchproducts
 
 urlpatterns = [
     path('', landingview),
@@ -33,6 +33,7 @@ urlpatterns = [
     path('edit-product-get/<int:id>/', edit_product_get),
     path('edit-product-post/<int:id>/', edit_product_post),
     path('products-by-supplier/<int:id>/', products_filtered),
+    path('search-products/', searchproducts),
 
 
     #suppliers url's
@@ -55,4 +56,10 @@ urlpatterns = [
 
     #stock url's
     path('stock/', stocklistview),
+    path('add-stock/', addstock),
+    path('delete-stock/<int:id>/', deletestock),
+    path('confirm-delete-stock/<int:id>/', confirmdeletestock),
+    path('edit-stock-get/<int:id>/', edit_stock_get),
+    path('edit-stock-post/<int:id>/', edit_stock_post),
+    
 ]
