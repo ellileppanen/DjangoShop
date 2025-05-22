@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="card" style="width: 25rem;">
+    <div class="card-header">
+
+        <h6>Editing {{store.storename}}</h6>
+
+        <div class="card-body">
+            <form method="post" action="/edit-store-post/{{store.id}}/">
+
+                {%csrf_token %}
+                <div class="form-group">
+                    <label>Store manager:</label>
+                    <input type="text" name="storemanager" value={{store.storemanager}}>
+                </div>
+                <div class="form-group">
+                    <label>Location:</label>
+                    <input type="text" name="location" value={{store.location}}>
+                </div>
+                <div class="form-group">
+                    <label>City:</label>
+                    <input type="text" name="city" value={{store.city}}>
+                </div>
+                
+                <input type="submit" value="Update" class="btn btn-success btn-sm">
+                <input type="button" onclick="window.location.href='/stores'" id="hide-btn"
+                    class="btn btn-secondary btn-sm" value="Cancel">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

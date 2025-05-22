@@ -18,7 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from .views import landingview, productlistview, supplierlistview, addsupplier, addproduct, \
     deleteproduct, confirmdeleteproduct, deletesupplier, confirmdeletesupplier, edit_product_get, \
-    edit_product_post, edit_supplier_get, edit_supplier_post, searchsuppliers, products_filtered
+    edit_product_post, edit_supplier_get, edit_supplier_post, searchsuppliers, products_filtered, \
+    storelistview, stocklistview, addstore, deletestore, confirmdeletestore, edit_store_get, edit_store_post, \
+    searchstores
 
 urlpatterns = [
     path('', landingview),
@@ -41,4 +43,16 @@ urlpatterns = [
     path('edit-supplier-get/<int:id>/', edit_supplier_get),
     path('edit-supplier-post/<int:id>/', edit_supplier_post),
     path('search-suppliers/', searchsuppliers),
+
+    #store url's
+    path('stores/', storelistview),
+    path('add-store/', addstore),
+    path('delete-store/<int:id>/', deletestore),
+    path('confirm-delete-store/<int:id>/', confirmdeletestore),
+    path('edit-store-get/<int:id>/', edit_store_get),
+    path('edit-store-post/<int:id>/', edit_store_post),
+    path('search-stores/', searchstores),
+
+    #stock url's
+    path('stock/', stocklistview),
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Supplier, Product
+from .models import Supplier, Product, Store, Stock
 
 def landingview(request):
     return render(request, 'landingpage.html')
@@ -97,3 +97,54 @@ def searchsuppliers(request):
     filtered = Supplier.objects.filter(companyname__icontains=search)
     context = {'suppliers': filtered}
     return render (request,"supplierlist.html",context)
+
+#Store views
+def storelistview(request):
+    storelist = Store.objects.all()
+    context = {'stores': storelist}
+    return render (request,"storelist.html",context)
+
+def addstore(request):
+    a = request.POST['storename']
+    b = request.POST['storemanager']
+    c = request.POST['location']
+    d = request.POST['city']
+    
+    Store(storename = a, storemanager = b, location = c, city = d).save()
+    return redirect(request.META['HTTP_REFERER'])
+
+def confirmdeletestore(request, id):
+    store = Store.objects.get(id = id)
+    context = {'store': store}
+    return render (request,"confirmdelsto.html",context)
+
+def deletestore(request, id):
+    Store.objects.get(id = id).delete()
+    return redirect(storelistview)
+
+def edit_store_get(request, id):
+        store = Store.objects.get(id = id)
+        context = {'store': store}
+        return render (request,"edit_store.html",context)
+
+def edit_store_post(request, id):
+        item = Store.objects.get(id = id)
+        item.storemanager = request.POST['storemanager']
+        item.location = request.POST['location']
+        item.city = request.POST['city']
+        item.save()
+        return redirect(storelistview)
+
+def searchstores(request):
+    search = request.POST['search']
+    filtered = Store.objects.filter(storename__icontains=search)
+    context = {'stores': filtered}
+    return render (request,"storelist.html",context)
+
+#Stock views
+def stocklistview(request):
+    stocklist = Stock.objects.all()
+    storelist = Store.objects.all()
+    productlist = Product.objects.all()
+    context = {'stock': stocklist, 'stores': storelist, 'products': productlist}
+    return render (request,"stocklist.html",context)

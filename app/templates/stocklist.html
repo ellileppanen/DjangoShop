@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<br />
+<!-- Lisäyslomakkeen paikka -->
+<div id="add-div"></div>
+<br />
+
+<h1>Stock</h1>
+
+<button onclick="showaddform()" class="btn btn-success btn-sm">Add new</button>
+<br>
+<br>
+
+{% for v in stock %}
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h3 class="card-title">Check product stocking in stores </h3>
+        <p class="card-text">Store: {{v.store.storename}}</p>
+        <p class="card-text">Product: {{v.product.productname}}</p>
+        <p class="card-text" style="color: green;">Units in stock: {{v.quantity}} pcs </p>
+
+        <a href="/edit-stock-get/{{v.id}}/" class="btn btn-primary">Edit</a>
+        <a href="/confirm-delete-stock/{{v.id}}/" class="btn btn-danger">Delete</a>
+
+    </div>
+</div>
+
+
+{% empty %}
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <p class="card-text">No stock found in the database </p>
+    </div>
+</div>
+
+{%endfor%}
+
+
+<script>
+
+let y = `
+<div class="card" style="width: 20rem;">
+    <h2 style="color: darkorange;">Please fill in form</h2>
+    <div class="card-body">
+        <form method="post" action="/add-stock/">
+            {% csrf_token %}
+
+            <label for="store">Store</label>
+            <select id="store" name="store">
+                {% for k in stores %}
+                <option value="{{ k.id }}">{{ k.storename }}</option>
+                {% endfor %}
+            </select>
+
+            <br />
+            <label for="product">Product</label>
+            <select id="product" name="product">
+                {% for p in products %}
+                <option value="{{ p.id }}">{{ p.productname }}</option>
+                {% endfor %}
+            </select>
+
+            <br />
+            <input class="card-text" type="number" placeholder="quantity or 0" name="quantity">
+
+            <br />
+            <br />
+            <input type="submit" value="Confirm" class="btn btn-success btn-sm">
+            <input type="button" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel">
+        </form>
+    </div>
+</div>`
+
+    function showaddform() {
+        document.getElementById("add-div").innerHTML = y
+    }
+
+    function hideaddform() {
+        document.getElementById("add-div").innerHTML = ""
+    }
+
+</script>
+
+{% endblock %}

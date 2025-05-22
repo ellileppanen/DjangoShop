@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<br>
+<div id="add-div"></div>
+<br>
+
+<h1>Stores</h1>
+<button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()">Add new</button>
+<br>
+<br>
+
+<form method="post" action="/search-stores/">
+
+    {%csrf_token %}
+    <input class="card-text" class="card-text" type="text" placeholder="search" name="search">
+
+    <input type="submit" value="Search" class="btn btn-dark btn-sm" name="">
+</form>
+<br>
+
+{% for k in stores %}
+
+<div class="card" style="width:50rem;">
+    <div class="card-body">
+        <h4 class="card-title">{{k.storename}}</h4>
+        <p class="card-text">Store Manager: {{k.storemanager}}</p>
+        <p class="card-text">Location: {{k.location}} | City: {{k.city}} </p>
+
+        <a href="/edit-store-get/{{k.id}}/" class="btn btn-primary">Edit</a>
+        <a href="/confirm-delete-store/{{k.id}}/" class="btn btn-danger">Delete</a>
+        <!-- <a href="/products-by-store/{{k.id}}/" class="btn btn-secondary">{{k.storename}} Store</a> -->
+    </div>
+</div>
+
+{% empty %}
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <p class="card-text">No stores found in the database </p>
+    </div>
+</div>
+
+{% endfor %}
+
+<script>
+    let x = `
+    <div class="card" style="width: 20rem;">
+
+        <h2 style="color: lightblue">Please fill in form</h2>
+
+        <div class="card-body">
+            <form method="post" action="/add-store/">
+                {% csrf_token %}
+                <input class="card-text" class="card-text" type="text" placeholder="store name" name="storename">
+                <input class="card-text" type="text" placeholder="store manager" name="storemanager">
+                <input class="card-text" type="text" placeholder="location" name="location">
+                <input class="card-text" type="text" placeholder="city" name="city">
+                <br/>
+                <br/>
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
+                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+            </form>
+        </div>
+    </div>` 
+
+    function showaddform() {
+        document.getElementById("add-div").innerHTML = x
+    }
+
+    function hideaddform() {
+        document.getElementById("add-div").innerHTML = ""
+    }
+
+</script>
+
+{% endblock %}
