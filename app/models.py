@@ -20,3 +20,20 @@ class Product(models.Model):
      
     def __str__(self):
         return f"{self.productname} produced by {self.supplier.companyname}"
+    
+class Store(models.Model):
+    storename = models.CharField(max_length = 50, default="kauppa")
+    storemanager = models.CharField(max_length = 50, default="henkilö")
+    location = models.CharField(max_length = 100, default="sijainti")
+    city = models.CharField(max_length = 30, default="kaupunki")
+
+    def __str__(self):
+        return f"{self.storename} managed by {self.storemanager} in {self.city}"
+
+class Stock(models.Model):
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.product.productname} in {self.store.storename}"
