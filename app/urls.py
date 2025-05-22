@@ -20,10 +20,16 @@ from .views import landingview, productlistview, supplierlistview, addsupplier, 
     deleteproduct, confirmdeleteproduct, deletesupplier, confirmdeletesupplier, edit_product_get, \
     edit_product_post, edit_supplier_get, edit_supplier_post, searchsuppliers, products_filtered, \
     storelistview, stocklistview, addstore, deletestore, confirmdeletestore, edit_store_get, edit_store_post, \
-    searchstores, addstock, deletestock, confirmdeletestock, edit_stock_get, edit_stock_post, searchproducts
+    searchstores, addstock, deletestock, confirmdeletestock, edit_stock_get, edit_stock_post, searchproducts, \
+    loginview, login_action, logout_action
 
 urlpatterns = [
-    path('', landingview),
+    path('landing/', landingview),
+
+    #loggin url's
+    path('', loginview),
+    path('login/', login_action),
+    path('logout/', logout_action),
 
     #product url's
     path('products/', productlistview),
@@ -61,5 +67,7 @@ urlpatterns = [
     path('confirm-delete-stock/<int:id>/', confirmdeletestock),
     path('edit-stock-get/<int:id>/', edit_stock_get),
     path('edit-stock-post/<int:id>/', edit_stock_post),
+
+    
     
 ]
